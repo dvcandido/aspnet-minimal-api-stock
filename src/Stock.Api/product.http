@@ -1,0 +1,26 @@
+GET http://localhost:5286/products
+
+###
+GET http://localhost:5286/products/2
+
+###
+POST http://localhost:5286/products
+Content-Type: application/json
+
+{
+    "name" : "",
+    "quantity" : 0
+}
+
+###
+PUT http://localhost:5286/products/1
+Content-Type: application/json
+
+{
+    "name" : "Product 2",
+    "price" : 200,
+    "quantity" : 0
+}
+
+###
+DELETE http://localhost:5286/products/1
