@@ -1,0 +1,1 @@
+# aspnet-minimal-api-stock
