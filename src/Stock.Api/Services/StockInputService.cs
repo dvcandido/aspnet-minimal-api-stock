@@ -7,13 +7,13 @@ namespace Stock.Api.Services
     public static class StockInputService
     {
         public static async Task<List<StockInput>> GetAll(StockContext context) =>
-                        await context.StockInput.ToListAsync();
+                        await context.StockInput.Include(x => x.Product).ToListAsync();
 
         public static async Task<IResult> GetById(int id, StockContext context) =>
-            await context.StockInput.FindAsync(id)
-                    is StockInput stockInput
-                        ? Results.Ok(stockInput)
-                        : Results.NotFound();
+            await context.StockInput.Include(x => x.Product).FirstOrDefaultAsync(x => x.Id == id) 
+                is StockInput stockInput
+                    ? Results.Ok(stockInput)
+                    : Results.NotFound();
 
         public static async Task<IResult> Create(StockInput stockInput, StockContext context)
         {

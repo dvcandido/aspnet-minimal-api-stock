@@ -4,12 +4,47 @@ GET http://localhost:5286/products
 GET http://localhost:5286/products/2
 
 ###
-POST http://localhost:5286/products
+POST http://localhost:5050/products
 Content-Type: application/json
 
 {
-    "name" : "",
-    "quantity" : 0
+    "name": "The Legend of Zelda: Tears of the Kingdom",
+    "price": 279.98
+}
+
+###
+POST http://localhost:5050/products
+Content-Type: application/json
+
+{
+    "name": "Bayonetta 2 + Bayonetta 1",
+    "price": 304.99
+}
+###
+POST http://localhost:5050/products
+Content-Type: application/json
+
+{
+    "name": "Hogwarts Legacy",
+    "price": 349.99
+}
+
+###
+POST http://localhost:5050/products
+Content-Type: application/json
+
+{
+    "name": "Nintendo Switch Neon 32GB",
+    "price": 1699.99
+}
+
+###
+POST http://localhost:5050/products
+Content-Type: application/json
+
+{
+"name": "Nintendo Switch OLED Edição The Legend of Zelda: Tears of the Kingdom - 64 GB",
+"price": 2039.99
 }
 
 ###

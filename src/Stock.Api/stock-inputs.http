@@ -1,10 +1,10 @@
-GET http://localhost:5286/stock-inputs
+GET http://localhost:5050/stock-inputs
 
 ###
-GET http://localhost:5286/stock-inputs/1
+GET http://localhost:5050/stock-inputs/1
 
 ###
-POST http://localhost:5286/stock-inputs
+POST http://localhost:5050/stock-inputs
 Content-Type: application/json
 
 {

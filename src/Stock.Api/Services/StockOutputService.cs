@@ -7,10 +7,10 @@ namespace Stock.Api.Services
     public static class StockOutputService
     {
         public static async Task<List<StockOutput>> GetAll(StockContext context) =>
-                        await context.StockOutput.ToListAsync();
+                        await context.StockOutput.Include(x => x.Product).ToListAsync();
 
         public static async Task<IResult> GetById(int id, StockContext context) =>
-            await context.StockOutput.FindAsync(id)
+            await context.StockOutput.Include(x => x.Product).FirstOrDefaultAsync(x => x.Id == id)
                     is StockOutput stockOutput
                         ? Results.Ok(stockOutput)
                         : Results.NotFound();
