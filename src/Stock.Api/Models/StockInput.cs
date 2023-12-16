@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Stock.Api.Models
 {
+    //TODO : Add the necessary attributes to the StockInput class to make it a valid model
     public class StockInput
     {
         public int Id { get; set; }

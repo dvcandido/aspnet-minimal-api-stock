@@ -12,10 +12,11 @@ namespace Stock.Api.Extensions
         {
             builder.Services.AddDbContext<StockContext>(options => 
             {
-                options.UseInMemoryDatabase("StockDb");
+                options.UseSqlServer(builder.Configuration["StockDb:ConnectionString"]);
                 options.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             
             });
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options => {
@@ -23,7 +24,7 @@ namespace Stock.Api.Extensions
                 {
                     Version = "v1",
                     Title = "Stock API",
-                    Description = "API for product management, stock input, and output"
+                    Description = "API for product management, stock input, and output, d1"
 
                 });
             });
