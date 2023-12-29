@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Stock.Api.Endpoints;
 using Stock.Api.Models;
 using Microsoft.OpenApi.Models;
+using FluentValidation;
 
 namespace Stock.Api.Extensions
 {
@@ -16,6 +17,10 @@ namespace Stock.Api.Extensions
                 options.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             
             });
+
+            builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
+            builder.Services.AddScoped<IValidator<StockInput>, StockInputValidator>();
+            builder.Services.AddScoped<IValidator<StockOutput>, StockOutputValidator>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddEndpointsApiExplorer();
