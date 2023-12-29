@@ -1,4 +1,5 @@
 using System.Data;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Stock.Api.Models;
 
@@ -15,8 +16,13 @@ namespace Stock.Api.Services
                     ? Results.Ok(stockInput)
                     : Results.NotFound();
 
-        public static async Task<IResult> Create(StockInput stockInput, StockContext context)
+        public static async Task<IResult> Create(StockInput stockInput, StockContext context, IValidator<StockInput> validator)
         {
+            var validationResult = await validator.ValidateAsync(stockInput);
+
+            if (!validationResult.IsValid)
+                return Results.BadRequest(validationResult.Errors);
+
             var product = await context.Product.FindAsync(stockInput.ProductId);
 
             if (product is null) return Results.NotFound();

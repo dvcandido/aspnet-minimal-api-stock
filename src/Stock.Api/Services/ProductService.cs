@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Stock.Api.Models;
 
@@ -14,16 +15,26 @@ namespace Stock.Api.Services
                         ? Results.Ok(product)
                         : Results.NotFound();
 
-        public static async Task<IResult> Create(Product product, StockContext context)
+        public static async Task<IResult> Create(Product product, StockContext context, IValidator<Product> validator)
         {
+            var validationResult = await validator.ValidateAsync(product);
+
+            if (!validationResult.IsValid)
+                return Results.BadRequest(validationResult.Errors);
+
             context.Product.Add(product);
             await context.SaveChangesAsync();
 
             return Results.Created($"/products/{product.Id}", product);
         }
 
-        public static async Task<IResult> Update(int id, Product inputProduct, StockContext context)
+        public static async Task<IResult> Update(int id, Product inputProduct, StockContext context, IValidator<Product> validator)
         {
+            var validationResult = await validator.ValidateAsync(inputProduct);
+
+            if (!validationResult.IsValid)
+                return Results.BadRequest(validationResult.Errors);
+
             var product = await context.Product.FindAsync(id);
 
             if (product is null) return Results.NotFound();
