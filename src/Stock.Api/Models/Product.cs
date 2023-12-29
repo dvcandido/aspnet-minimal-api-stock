@@ -1,9 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using FluentValidation;
 
 namespace Stock.Api.Models
 {
-    //TODO 1: Add the necessary attributes to the Product class to make it a valid model
     public class Product
     {
         public int Id { get; set; }
@@ -21,5 +20,15 @@ namespace Stock.Api.Models
         public void IncreaseStock(int quantity) => Quantity += quantity;
 
         public void DecreaseStock(int quantity) => Quantity -= quantity;
+    }
+
+    public class ProductValidator : AbstractValidator<Product>
+    {
+        public ProductValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
+            RuleFor(x => x.Quantity).GreaterThanOrEqualTo(0).WithMessage("Quantity must be greater than or equal to 0");
+        }
     }
 }

@@ -1,9 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using FluentValidation;
 
 namespace Stock.Api.Models
 {
-    //TODO : Add the necessary attributes to the StockOutput class to make it a valid model
     public class StockOutput
     {
         public int Id { get; set; }
@@ -12,4 +10,14 @@ namespace Stock.Api.Models
         public int ProductId { get; set; }
         public Product? Product { get; set; } 
     }  
+
+    public class StockOutputValidator : AbstractValidator<StockOutput>
+    {
+        public StockOutputValidator()
+        {
+            RuleFor(x => x.Quantity).GreaterThan(0).WithMessage("Quantity must be greater than 0");
+            RuleFor(x => x.Date).NotEmpty().WithMessage("Date is required");
+            RuleFor(x => x.ProductId).NotEmpty().WithMessage("ProductId is required");
+        }
+    }
 }
